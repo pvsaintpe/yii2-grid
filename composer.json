@@ -1,0 +1,35 @@
+{
+  "name": "pvsaintpe/yii2-grid",
+  "description": "Package",
+  "keywords": [
+    "yii2",
+    "gridview"
+  ],
+  "type": "yii2-extension",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Pavel Veselov",
+      "email": "pvsaintpe@icloud.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0.0",
+    "yiisoft/yii2": "2.0.15.1",
+    "kartik-v/yii2-export": "1.2.5",
+    "kartik-v/yii2-grid": "3.2.5",
+    "kartik-v/yii2-detail-view": "1.7.6",
+    "pvsaintpe/yii2-db-plus": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "pvsaintpe\\grid\\": ""
+    }
+  },
+  "extra": {
+    "asset-installer-paths": {
+      "npm-asset-library": "vendor/npm",
+      "bower-asset-library": "vendor/bower"
+    }
+  }
+}
