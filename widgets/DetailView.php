@@ -4,6 +4,7 @@ namespace pvsaintpe\grid\widgets;
 
 use yii\helpers\ArrayHelper;
 use kartik\detail\DetailView as KartikDetailView;
+use yii\helpers\Html;
 
 /**
  * Class DetailView
@@ -17,6 +18,7 @@ class DetailView extends KartikDetailView
     /**
      * @param array $config
      * @return string
+     * @throws \Exception
      */
     public static function widget($config = [])
     {

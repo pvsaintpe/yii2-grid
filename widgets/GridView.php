@@ -30,6 +30,7 @@ class GridView extends KartikGridView
     /**
      * Renders the table body.
      * @return string the rendering result.
+     * @throws \yii\base\InvalidConfigException
      */
     public function renderTableBody()
     {
@@ -74,6 +75,7 @@ class GridView extends KartikGridView
      * Custom renders the table page summary.
      *
      * @return string the rendering result.
+     * @throws \yii\base\InvalidConfigException
      */
     public function renderPageSummary()
     {
@@ -128,6 +130,7 @@ class GridView extends KartikGridView
     /**
      * @param array $config
      * @return string
+     * @throws \Exception
      */
     public static function widget($config = [])
     {
@@ -235,7 +238,8 @@ class GridView extends KartikGridView
     }
 
     /**
-     * Runs the widget.
+     * @return string|void
+     * @throws \yii\base\InvalidConfigException
      */
     public function run()
     {
