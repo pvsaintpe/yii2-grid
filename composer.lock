@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f4559edbedd8be7c95d539e84b4ee4f",
+    "content-hash": "0e8e6e6275177dc36d09b122defe5a78",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -357,27 +357,26 @@
         },
         {
             "name": "kartik-v/yii2-detail-view",
-            "version": "v1.7.9",
+            "version": "v1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-detail-view.git",
-                "reference": "65b32b05829970e0eb4f8e185bc8b38ebdf37b4f"
+                "reference": "91905b0e1098ba12f821ddd02d3500975619f5de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/65b32b05829970e0eb4f8e185bc8b38ebdf37b4f",
-                "reference": "65b32b05829970e0eb4f8e185bc8b38ebdf37b4f",
+                "url": "https://api.github.com/repos/kartik-v/yii2-detail-view/zipball/91905b0e1098ba12f821ddd02d3500975619f5de",
+                "reference": "91905b0e1098ba12f821ddd02d3500975619f5de",
                 "shasum": ""
             },
             "require": {
                 "kartik-v/yii2-dialog": "~1.0",
-                "kartik-v/yii2-krajee-base": ">=1.9",
-                "kartik-v/yii2-widget-activeform": "~1.4"
+                "kartik-v/yii2-widget-activeform": ">=1.5.6"
             },
             "type": "yii2-extension",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.7.x-dev"
+                    "dev-master": "1.8.x-dev"
                 }
             },
             "autoload": {
@@ -396,7 +395,7 @@
                     "homepage": "http://www.krajee.com/"
                 }
             ],
-            "description": "Various enhancements to the Yii 2 Detail View with multi models, ability to edit data, manage Bootstrap 3 styles and more.",
+            "description": "Enhanced Yii 2 Detail View widget with special Bootstrap styles, ability to edit data, and more.",
             "homepage": "https://github.com/kartik-v/yii2-detail-view",
             "keywords": [
                 "detail",
@@ -407,7 +406,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2018-09-26T14:18:11+00:00"
+            "time": "2018-09-27T18:45:36+00:00"
         },
         {
             "name": "kartik-v/yii2-dialog",
@@ -521,21 +520,21 @@
         },
         {
             "name": "kartik-v/yii2-grid",
-            "version": "v3.2.4",
+            "version": "v3.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-grid.git",
-                "reference": "7f3812404b867769a52471be30a99fcd325b2c0d"
+                "reference": "00def04887676e11d4796c46772cbb791d9eda0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/7f3812404b867769a52471be30a99fcd325b2c0d",
-                "reference": "7f3812404b867769a52471be30a99fcd325b2c0d",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/00def04887676e11d4796c46772cbb791d9eda0b",
+                "reference": "00def04887676e11d4796c46772cbb791d9eda0b",
                 "shasum": ""
             },
             "require": {
                 "kartik-v/yii2-dialog": "~1.0",
-                "kartik-v/yii2-krajee-base": ">=1.9"
+                "kartik-v/yii2-krajee-base": ">=1.9.8"
             },
             "suggest": {
                 "kartik-v/yii2-mpdf": "For exporting grids to PDF"
@@ -570,20 +569,20 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2018-09-26T10:35:07+00:00"
+            "time": "2018-09-27T03:38:40+00:00"
         },
         {
             "name": "kartik-v/yii2-krajee-base",
-            "version": "v1.9.3",
+            "version": "v1.9.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-krajee-base.git",
-                "reference": "1d36fae5cdc2538ad048182f0b7362f40e45cea4"
+                "reference": "1693374160c24443524ddc23508d2eb2955443f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/1d36fae5cdc2538ad048182f0b7362f40e45cea4",
-                "reference": "1d36fae5cdc2538ad048182f0b7362f40e45cea4",
+                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/1693374160c24443524ddc23508d2eb2955443f4",
+                "reference": "1693374160c24443524ddc23508d2eb2955443f4",
                 "shasum": ""
             },
             "require": {
@@ -621,24 +620,24 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2018-08-29T02:57:02+00:00"
+            "time": "2018-09-27T18:02:35+00:00"
         },
         {
             "name": "kartik-v/yii2-widget-activeform",
-            "version": "v1.5.5",
+            "version": "v1.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-activeform.git",
-                "reference": "12e82f6bc6d56e13f530d9622164639b39af7d41"
+                "reference": "6bc8bc7231a5c0b1b6e5c89497088266931f9075"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-activeform/zipball/12e82f6bc6d56e13f530d9622164639b39af7d41",
-                "reference": "12e82f6bc6d56e13f530d9622164639b39af7d41",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-activeform/zipball/6bc8bc7231a5c0b1b6e5c89497088266931f9075",
+                "reference": "6bc8bc7231a5c0b1b6e5c89497088266931f9075",
                 "shasum": ""
             },
             "require": {
-                "kartik-v/yii2-krajee-base": ">=1.9"
+                "kartik-v/yii2-krajee-base": ">=1.9.8"
             },
             "type": "yii2-extension",
             "extra": {
@@ -673,7 +672,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2018-09-26T08:06:51+00:00"
+            "time": "2018-09-27T17:51:42+00:00"
         },
         {
             "name": "phpoffice/phpexcel",
