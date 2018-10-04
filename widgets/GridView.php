@@ -2,8 +2,6 @@
 
 namespace pvsaintpe\grid\widgets;
 
-namespace pvsaintpe\search\widgets;
-
 use kartik\grid\GridView as KartikGridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Inflector;
