@@ -5,6 +5,7 @@ namespace pvsaintpe\grid\widgets;
 use yii\helpers\ArrayHelper;
 use kartik\detail\DetailView as KartikDetailView;
 use yii\helpers\Html;
+use yii\base\Model;
 
 /**
  * Class DetailView
@@ -43,6 +44,38 @@ class DetailView extends KartikDetailView
             'hideIfEmpty' => false,
         ], $config);
 
+        static::enableAttributes($config);
+        static::disableAttributes($config);
+        return parent::widget($config);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function renderDetailView()
+    {
+        foreach ($this->attributes as $key => $attribute) {
+            if (!isset($attribute['attribute'])) {
+                continue;
+            }
+            if ($this->model instanceof Model) {
+                if ($hint = $this->model->getAttributeHint($attribute['attribute'])) {
+                    $this->attributes[$key]['label'] = Html::tag('span', $attribute['label'], [
+                        'data-toggle' => 'tooltip',
+                        'data-placement' => 'top',
+                        'title' => $hint
+                    ]);
+                }
+            }
+        }
+        return parent::renderDetailView();
+    }
+
+    /**
+     * @param $config
+     */
+    protected static function disableAttributes(&$config)
+    {
         if (isset($config['disableAttributes']) && sizeof($config['disableAttributes']) > 0) {
             foreach ($config['attributes'] as $columnId => $gridColumnName) {
                 if (isset($gridColumnName['attribute'])
@@ -59,46 +92,27 @@ class DetailView extends KartikDetailView
             }
         }
         unset($config['disableAttributes']);
-        return parent::widget($config);
     }
 
-    public function init()
+    /**
+     * @param $config
+     */
+    protected static function enableAttributes(&$config)
     {
-        $model = $this->model;
-
-        if ($model instanceof BoostActiveRecord) {
-            foreach ($this->attributes as $key => $value) {
-                if (is_int($key) && is_string($value)) {
-                    if (in_array($value, $model::booleanAttributes())) {
-                        $this->attributes[$key] = [
-                            'attribute' => $value,
-                            'value' => function ($form, $widget) use ($value) {
-                                return Html::glyphIconBool($widget->model->$value);
-                            },
-                            'format' => 'raw'
-                        ];
-                    } elseif (in_array($value, $model::datetimeAttributes())) {
-                        $this->attributes[$key] = [
-                            'attribute' => $value,
-                            'format' => 'datetime'
-                        ];
-                    } elseif (in_array($value, $model::dateAttributes())) {
-                        $this->attributes[$key] = [
-                            'attribute' => $value,
-                            'format' => 'date'
-                        ];
+        if (isset($config['enableAttributes']) && sizeof($config['enableAttributes']) > 0) {
+            foreach ($config['attributes'] as $columnId => $gridColumnName) {
+                if (is_array($gridColumnName)) {
+                    if (isset($gridColumnName['attribute'])
+                        && !in_array($gridColumnName['attribute'], $config['enableAttributes'])) {
+                        unset($config['attributes'][$columnId]);
                     }
+                    continue;
                 }
-
-                if (isset($this->attributes[$key]['format']) && $this->attributes[$key]['format'] == 'currency') {
-                    $this->attributes[$key]['format'] = 'raw';
-                    $this->attributes[$key]['value'] = function ($form, $widget) use ($model, $value) {
-                        return CurrencyColumn::asCurrency($model, $model->{$value['attribute']});
-                    };
+                if (!in_array($gridColumnName, $config['enableAttributes'])) {
+                    unset($config['attributes'][$columnId]);
                 }
             }
         }
-
-        parent::init();
+        unset($config['enableAttributes']);
     }
 }
