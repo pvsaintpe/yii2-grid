@@ -15,6 +15,9 @@ class GridView extends KartikGridView
 {
     public static $exportFilename = null;
 
+    /**
+     * @var bool 
+     */
     public $showPageSummary = true;
 
     public $showCustomPageSummary = false;
