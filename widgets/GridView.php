@@ -4,26 +4,45 @@ namespace pvsaintpe\grid\widgets;
 
 use kartik\grid\GridView as KartikGridView;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Inflector;
-use Yii;
+use yii\web\View;
 
 /**
  * Class GridView
- * @package pvsaintpe\search\widgets
+ * @package pvsaintpe\grid\widgets
  */
 class GridView extends KartikGridView
 {
-    public static $exportFilename = null;
+    const CLICKABLE_CLASS = 'clickable-row';
 
     /**
-     * @var bool 
+     * Allow to clickable row
+     * @var bool
+     */
+    public $clickable = false;
+
+    /**
+     * @var bool
      */
     public $showPageSummary = true;
 
+    /**
+     * @var bool
+     */
     public $showCustomPageSummary = false;
+
+    /**
+     * @var array
+     */
     public $beforeSummary = [];
+
+    /**
+     * @var array
+     */
     public $afterSummary = [];
 
+    /**
+     * @var array
+     */
     public $captionOptions = [
         'style' => 'display: none'
     ];
@@ -115,18 +134,73 @@ class GridView extends KartikGridView
         return $content;
     }
 
-    public static $exportCustomConfig = [
-        self::CSV => [
-            'config' => [
-                'colDelimiter' => ";",
-                'mime' => "application/csv",
-                'encoding' => 'utf-8',
-            ],
-            'mime' => "application/csv",
-        ],
-        self::JSON => [],
-        self::EXCEL => []
-    ];
+    /**
+     * @var bool
+     */
+    public $pjax = true;
+
+    /**
+     * @var bool
+     */
+    public $bordered = true;
+
+    /**
+     * @var bool
+     */
+    public $striped = false;
+
+    /**
+     * @var bool
+     */
+    public $condensed = true;
+
+    /**
+     * @var bool
+     */
+    public $responsive = true;
+
+    /**
+     * @var bool
+     */
+    public $summary = true;
+
+    /**
+     * @var bool
+     */
+    public $hover = true;
+
+    /**
+     * @var bool
+     */
+    public $persistResize = true;
+
+    /**
+     * @var bool
+     */
+    public $resizableColumns = false;
+
+    /**
+     * @var bool
+     */
+    public $perfectScrollbar = false;
+
+    /**
+     * @var string
+     */
+    public $panelTemplate = '{panelBefore} {items} {panelAfter} {panelFooter}';
+
+    public $panelBeforeTemplate = '
+        <div class="pull-left"></div>
+        <div class="pull-right">
+            <div class="btn-toolbar kv-grid-toolbar" role="toolbar">{toolbar}</div>
+        </div>
+        <div class="clearfix"></div>
+    ';
+
+    /**
+     * @var array
+     */
+    public $disableColumns = [];
 
     /**
      * @param array $config
@@ -135,107 +209,31 @@ class GridView extends KartikGridView
      */
     public static function widget($config = [])
     {
-        if (isset($config['exportFilename'])) {
-            static::$exportFilename = $config['exportFilename'];
-        } else {
-            $class = 'Export';
-            if (isset($config['filterModel'])) {
-                $class = get_class($config['filterModel']);
-            }
-
-            static::$exportFilename = $class;
-        }
-
-        unset($config['exportFilename']);
-
-        foreach (static::$exportCustomConfig as $format => $settings) {
-            static::$exportCustomConfig[$format]['filename'] = static::$exportFilename;
-        }
-
-        if (!isset($config['toolbar'])) {
-            $config['toolbar'] = [
-                [
-                    'content' => \yii\helpers\Html::a(
-                        '<i class="glyphicon glyphicon-repeat"></i>',
-                        ['index'],
-                        ['data-pjax' => 0,
-                            'class' => 'btn btn-default btn-sm',
-                            'title' => Yii::t('info', 'Сбросить')
-                        ]),
-                ],
-                '{export}',
-            ];
-        }
-
-        if (!isset($config['toggleDataOptions'])) {
-            $config['toggleDataOptions'] = [
-                'all' => [
-                    'icon' => 'resize-full',
-                    'class' => 'btn btn-default btn-sm',
-                ],
-                'page' => [
-                    'icon' => 'resize-small',
-                    'class' => 'btn btn-default btn-sm',
-                ],
-            ];
-        }
-
-        $config = ArrayHelper::merge([
-            'exportConfig' => static::$exportCustomConfig,
-            'export' => [
-                'encoding' => 'utf-8',
-            ],
-        ], [
-            'pjax' => true,
-            'bordered' => true,
-            'striped' => true,
-            'condensed' => true,
-            'responsive' => true,
-            'summary' => true,
-            'hover' => false,
-            'showPageSummary' => true,
-            'persistResize' => true,
-            'resizableColumns' => false,
-            'perfectScrollbar' => false,
-            'panel' => [
-                'heading' => false,
-            ],
-            'panelTemplate' => '
-                {panelBefore}
-                {items}
-                {panelAfter}
-                {panelFooter}
-            ',
-            'export' => [
-                'target' => static::TARGET_SELF,
-            ],
-            'panelBeforeTemplate' => '
-            <div class="pull-left"></div>
-            <div class="pull-right">
-                <div class="btn-toolbar kv-grid-toolbar" role="toolbar">{toolbar}</div>
-            </div>
-            <div class="clearfix"></div>',
-        ], $config);
+        $config = ArrayHelper::merge(['panel' => ['heading' => false]], $config);
 
         if (isset($config['disableColumns']) && sizeof($config['disableColumns']) > 0) {
-            foreach ($config['columns'] as $columnId => $column) {
-                if (isset($column['attribute'])) {
-                    $attribute = $column['attribute'];
-                } else {
-                    $classPath = explode('\\', str_replace('Column', '', $column['class']));
-                    $className = array_pop($classPath);
-                    $attribute = Inflector::camel2id($className, '_');
-                }
-
+            foreach ($config['columns'] as $attribute => $column) {
                 if (in_array($attribute, $config['disableColumns'])) {
-                    unset($config['columns'][$columnId]);
+                    unset($config['columns'][$attribute]);
+                    unset($column);
                 }
             }
         }
 
-        unset($config['disableColumns']);
-
-        return parent::widget($config);
+        return parent::widget(
+            array_merge(
+                [
+                    'id' => 'w0',
+                    'rowOptions' => function ($model, $key, $index, $grid) {
+                        return [
+                            'class' => static::CLICKABLE_CLASS,
+                            'style' => 'cursor: pointer',
+                        ];
+                    }
+                ],
+                $config
+            )
+        );
     }
 
     /**
@@ -244,7 +242,38 @@ class GridView extends KartikGridView
      */
     public function run()
     {
+        $this->rowOptions;
         $this->caption = $this->view->title;
+        if ($this->clickable) {
+            $this->view->registerJs(
+                "
+$(document).ready(function () {
+    console.log('ready');
+    $('." . static::CLICKABLE_CLASS . ">td').on('click', function(e) {
+        console.log('click');
+        if ($(this).get(0).dataset.columnClickable != 0) {
+            $('." . static::CLICKABLE_CLASS . "').removeClass('active');
+            $(this).parent().addClass('active');
+        }
+    });
+});
+            ",
+                View::POS_END
+            );
+        }
         parent::run();
+    }
+
+    /**
+     * @var bool
+     */
+    public $export = false;
+
+    /**
+     * @return string
+     */
+    public function renderExport()
+    {
+        return '';
     }
 }
