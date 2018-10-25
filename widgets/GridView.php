@@ -4,6 +4,7 @@ namespace pvsaintpe\grid\widgets;
 
 use kartik\grid\GridView as KartikGridView;
 use pvsaintpe\grid\ClickableAsset;
+use pvsaintpe\pager\Pager;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -255,4 +256,11 @@ class GridView extends KartikGridView
     {
         return '';
     }
+
+    /**
+     * @var array
+     */
+    public $pager = [
+        'class' => Pager::class,
+    ];
 }
