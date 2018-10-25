@@ -3,7 +3,7 @@
 namespace pvsaintpe\grid\widgets;
 
 use kartik\grid\GridView as KartikGridView;
-use pvsaintpe\grid\assets\ClickableAsset;
+use pvsaintpe\grid\ClickableAsset;
 use yii\helpers\ArrayHelper;
 
 /**

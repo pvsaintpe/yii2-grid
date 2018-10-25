@@ -1,12 +1,12 @@
 <?php
 
-namespace pvsaintpe\grid\assets;
+namespace pvsaintpe\grid;
 
 use kartik\base\AssetBundle;
 
 /**
  * Class ClickableAsset
- * @package pvsaintpe\grid\assets
+ * @package pvsaintpe\grid
  */
 class ClickableAsset extends AssetBundle
 {
