@@ -17,7 +17,7 @@ class GridView extends KartikGridView
      * Allow to clickable row
      * @var bool
      */
-    public $clickable = false;
+    public $clickable = true;
 
     /**
      * @var bool
