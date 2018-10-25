@@ -3,8 +3,8 @@
 namespace pvsaintpe\grid\widgets;
 
 use kartik\grid\GridView as KartikGridView;
+use pvsaintpe\grid\assets\ClickableAsset;
 use yii\helpers\ArrayHelper;
-use yii\web\View;
 
 /**
  * Class GridView
@@ -12,8 +12,6 @@ use yii\web\View;
  */
 class GridView extends KartikGridView
 {
-    const CLICKABLE_CLASS = 'clickable-row';
-
     /**
      * Allow to clickable row
      * @var bool
@@ -224,12 +222,7 @@ class GridView extends KartikGridView
             array_merge(
                 [
                     'id' => 'w0',
-                    'rowOptions' => function ($model, $key, $index, $grid) {
-                        return [
-                            'class' => static::CLICKABLE_CLASS,
-                            'style' => 'cursor: pointer',
-                        ];
-                    }
+                    'rowOptions' => ['class' => 'clickable-row']
                 ],
                 $config
             )
@@ -242,26 +235,12 @@ class GridView extends KartikGridView
      */
     public function run()
     {
-        $this->rowOptions;
         $this->caption = $this->view->title;
-        if ($this->clickable) {
-            $this->view->registerJs(
-                "
-$(document).ready(function () {
-    console.log('ready');
-    $('." . static::CLICKABLE_CLASS . ">td').on('click', function(e) {
-        console.log('click');
-        if ($(this).get(0).dataset.columnClickable != 0) {
-            $('." . static::CLICKABLE_CLASS . "').removeClass('active');
-            $(this).parent().addClass('active');
-        }
-    });
-});
-            ",
-                View::POS_END
-            );
-        }
         parent::run();
+        if ($this->clickable) {
+            $view = $this->getView();
+            ClickableAsset::register($view);
+        }
     }
 
     /**
