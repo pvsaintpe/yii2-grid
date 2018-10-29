@@ -2,10 +2,23 @@
 
 namespace pvsaintpe\grid\widgets;
 
+use kartik\base\Config;
+use kartik\dialog\Dialog;
+use kartik\grid\GridExportAsset;
+use kartik\grid\GridFloatHeadAsset;
+use kartik\grid\GridPerfectScrollbarAsset;
+use kartik\grid\GridResizeColumnsAsset;
+use kartik\grid\GridResizeStoreAsset;
 use kartik\grid\GridView as KartikGridView;
 use pvsaintpe\grid\ClickableAsset;
+use pvsaintpe\grid\GridViewAsset;
+use pvsaintpe\helpers\Html;
 use pvsaintpe\pager\Pager;
+use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Inflector;
+use yii\helpers\Json;
+use yii\web\JsExpression;
 
 /**
  * Class GridView
@@ -276,17 +289,65 @@ class GridView extends KartikGridView
     }
 
     /**
-     * @return string|void
-     * @throws \yii\base\InvalidConfigException
+     * @inheritdoc
+     * @throws InvalidConfigException
+     * @throws \Exception
      */
     public function run()
     {
         $this->caption = $this->view->title;
-        parent::run();
+        $this->initToggleData();
+        $this->initExport();
+        if ($this->export !== false && isset($this->exportConfig[self::PDF])) {
+            Config::checkDependency(
+                'mpdf\Pdf',
+                'yii2-mpdf',
+                'for PDF export functionality. To include PDF export, follow the install steps below. If you do not ' .
+                "need PDF export functionality, do not include 'PDF' as a format in the 'export' property. You can " .
+                "otherwise set 'export' to 'false' to disable all export functionality"
+            );
+        }
+        $this->initHeader();
+        $this->initBootstrapStyle();
+        $this->containerOptions['id'] = $this->options['id'] . '-container';
+        Html::addCssClass($this->containerOptions, 'kv-grid-container');
+        $this->initPanel();
+        $this->initLayout();
+        $this->registerAssets();
+        if ($this->pjax) {
+            $this->beginPjax();
+            $this->baseRun();
+            $this->endPjax();
+        } else {
+            $this->baseRun();
+        }
+        $view = $this->getView();
         if ($this->clickable) {
-            $view = $this->getView();
             ClickableAsset::register($view);
         }
+    }
+
+    public function baseRun()
+    {
+        $id = $this->options['id'];
+        $options = Json::htmlEncode($this->getClientOptions());
+        $view = $this->getView();
+        GridViewAsset::register($view);
+        $view->registerJs("jQuery('#$id').yiiGridView($options);");
+
+        if ($this->showOnEmpty || $this->dataProvider->getCount() > 0) {
+            $content = preg_replace_callback('/{\\w+}/', function ($matches) {
+                $content = $this->renderSection($matches[0]);
+
+                return $content === false ? $matches[0] : $content;
+            }, $this->layout);
+        } else {
+            $content = $this->renderEmpty();
+        }
+
+        $options = $this->options;
+        $tag = ArrayHelper::remove($options, 'tag', 'div');
+        echo Html::tag($tag, $content, $options);
     }
 
     /**
