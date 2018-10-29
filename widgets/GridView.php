@@ -20,6 +20,22 @@ class GridView extends KartikGridView
     public $clickable = true;
 
     /**
+     * @var array|\Closure
+     */
+    public $clickableOptions = null;
+
+    /**
+     * Auto-select first row in grid
+     * @var bool
+     */
+    public $firstSelected = true;
+
+    /**
+     * @var int
+     */
+    public static $rowCounter = 0;
+
+    /**
      * @var bool
      */
     public $showPageSummary = true;
@@ -223,7 +239,36 @@ class GridView extends KartikGridView
             array_merge(
                 [
                     'id' => 'w0',
-                    'rowOptions' => ['class' => 'clickable-row']
+                    'rowOptions' => function ($model, $key, $index, GridView $grid) {
+                        $options = [];
+                        if ($grid->clickable) {
+                            $options = array_merge($options, ['class' => 'clickable-row']);
+                        }
+                        if ($grid->firstSelected && $grid::$rowCounter == 0) {
+                            if (isset($options['class'])) {
+                                $options['class'] .= ' active';
+                            } else {
+                                $options['class'] = 'active';
+                            }
+                            $grid::$rowCounter++;
+                        }
+                        if (is_callable($grid->clickableOptions)) {
+                            $func = $grid->clickableOptions;
+                            $customOptions = $func($model, $key, $index, $grid);
+                        } else {
+                            if (!($customOptions = $grid->clickableOptions)) {
+                                $customOptions = [];
+                            }
+                        }
+                        if (isset($options['class']) && isset($customOptions['class'])) {
+                            $options['class'] = join(' ', [
+                                $options['class'],
+                                $customOptions['class']
+                            ]);
+                            unset($customOptions['class']);
+                        }
+                        return array_merge_recursive($options, $customOptions);
+                    }
                 ],
                 $config
             )

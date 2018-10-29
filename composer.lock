@@ -2036,16 +2036,16 @@
         },
         {
             "name": "pvsaintpe/yii2-pager",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pvsaintpe/yii2-pager.git",
-                "reference": "a25c035c758aeca1fc44ab0fe229af9ec21c7699"
+                "reference": "a66699d839a6e8d770f3806df09c119637f9456e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pvsaintpe/yii2-pager/zipball/a25c035c758aeca1fc44ab0fe229af9ec21c7699",
-                "reference": "a25c035c758aeca1fc44ab0fe229af9ec21c7699",
+                "url": "https://api.github.com/repos/pvsaintpe/yii2-pager/zipball/a66699d839a6e8d770f3806df09c119637f9456e",
+                "reference": "a66699d839a6e8d770f3806df09c119637f9456e",
                 "shasum": ""
             },
             "require": {
@@ -2083,7 +2083,7 @@
                 "gridview",
                 "yii2"
             ],
-            "time": "2018-10-25T18:40:54+00:00"
+            "time": "2018-10-27T08:55:20+00:00"
         },
         {
             "name": "yiisoft/yii2",
