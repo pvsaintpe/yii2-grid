@@ -3,12 +3,6 @@
 namespace pvsaintpe\grid\widgets;
 
 use kartik\base\Config;
-use kartik\dialog\Dialog;
-use kartik\grid\GridExportAsset;
-use kartik\grid\GridFloatHeadAsset;
-use kartik\grid\GridPerfectScrollbarAsset;
-use kartik\grid\GridResizeColumnsAsset;
-use kartik\grid\GridResizeStoreAsset;
 use kartik\grid\GridView as KartikGridView;
 use pvsaintpe\grid\ClickableAsset;
 use pvsaintpe\grid\GridViewAsset;
@@ -16,9 +10,7 @@ use pvsaintpe\helpers\Html;
 use pvsaintpe\pager\Pager;
 use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Inflector;
 use yii\helpers\Json;
-use yii\web\JsExpression;
 
 /**
  * Class GridView

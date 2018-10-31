@@ -2,6 +2,8 @@
 
 namespace pvsaintpe\grid\components;
 
+use pvsaintpe\helpers\Html;
+
 /**
  * Class ColumnTrait
  * @package pvsaintpe\grid\components
@@ -38,5 +40,18 @@ trait ColumnTrait
         }
 
         return $options;
+    }
+
+    /**
+     * @return string
+     */
+    public function renderFilterCell()
+    {
+        return Html::tag('td', $this->renderFilterCellContent(), array_merge(
+            $this->filterOptions,
+            isset($this->attribute)
+                ? ['data-col-seq' => $this->attribute]
+                : []
+        ));
     }
 }
