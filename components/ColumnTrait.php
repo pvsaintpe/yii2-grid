@@ -21,8 +21,10 @@ trait ColumnTrait
 
     protected function initTooltip()
     {
-        if (($hint = $this->grid->filterModel->getAttributeHint($this->attribute))) {
-            $this->sortLinkOptions = ['data-toggle' => 'tooltip', 'data-original-title' => $hint];
+        if ($this->grid && $this->grid->filterModel) {
+            if (($hint = $this->grid->filterModel->getAttributeHint($this->attribute))) {
+                $this->sortLinkOptions = ['data-toggle' => 'tooltip', 'data-original-title' => $hint];
+            }
         }
     }
 
