@@ -19,6 +19,13 @@ trait ColumnTrait
         'clickable' => 1,
     ];
 
+    protected function initTooltip()
+    {
+        if (($hint = $this->grid->filterModel->getAttributeHint($this->attribute))) {
+            $this->sortLinkOptions = ['data-toggle' => 'tooltip', 'data-original-title' => $hint];
+        }
+    }
+
     /**
      * Parses and fetches updated content options for grid visibility and format
      *
