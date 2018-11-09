@@ -1988,16 +1988,16 @@
         },
         {
             "name": "pvsaintpe/yii2-helpers",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pvsaintpe/yii2-helpers.git",
-                "reference": "54b414cca494b6866f0abbb5eb4ada596f90b334"
+                "reference": "2403f57b4480503623ddb7b54707e44b128b23b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pvsaintpe/yii2-helpers/zipball/54b414cca494b6866f0abbb5eb4ada596f90b334",
-                "reference": "54b414cca494b6866f0abbb5eb4ada596f90b334",
+                "url": "https://api.github.com/repos/pvsaintpe/yii2-helpers/zipball/2403f57b4480503623ddb7b54707e44b128b23b3",
+                "reference": "2403f57b4480503623ddb7b54707e44b128b23b3",
                 "shasum": ""
             },
             "require": {
@@ -2032,20 +2032,20 @@
                 "gridview",
                 "yii2"
             ],
-            "time": "2018-10-25T18:28:11+00:00"
+            "time": "2018-10-29T14:32:48+00:00"
         },
         {
             "name": "pvsaintpe/yii2-pager",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pvsaintpe/yii2-pager.git",
-                "reference": "a66699d839a6e8d770f3806df09c119637f9456e"
+                "reference": "79017e8177a34348f8f54452f3b978228197bd3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pvsaintpe/yii2-pager/zipball/a66699d839a6e8d770f3806df09c119637f9456e",
-                "reference": "a66699d839a6e8d770f3806df09c119637f9456e",
+                "url": "https://api.github.com/repos/pvsaintpe/yii2-pager/zipball/79017e8177a34348f8f54452f3b978228197bd3c",
+                "reference": "79017e8177a34348f8f54452f3b978228197bd3c",
                 "shasum": ""
             },
             "require": {
@@ -2083,7 +2083,7 @@
                 "gridview",
                 "yii2"
             ],
-            "time": "2018-10-27T08:55:20+00:00"
+            "time": "2018-10-29T14:40:28+00:00"
         },
         {
             "name": "yiisoft/yii2",
