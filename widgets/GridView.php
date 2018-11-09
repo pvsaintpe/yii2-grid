@@ -4,6 +4,7 @@ namespace pvsaintpe\grid\widgets;
 
 use kartik\base\Config;
 use kartik\grid\GridView as KartikGridView;
+use pvsaintpe\freeze\FreezeAsset;
 use pvsaintpe\grid\ClickableAsset;
 use pvsaintpe\grid\GridViewAsset;
 use pvsaintpe\helpers\Html;
@@ -162,7 +163,7 @@ class GridView extends KartikGridView
     /**
      * @var bool
      */
-    public $bordered = true;
+    public $bordered = false;
 
     /**
      * @var bool
@@ -221,6 +222,25 @@ class GridView extends KartikGridView
      * @var array
      */
     public $disableColumns = [];
+
+    /**
+     * Включение закрепления колонок
+     * @var bool
+     */
+    public $freezed = true;
+
+    /**
+     * Параметры закрепления (перечислить колонки, которые надо закрепить)
+     * @var array
+     *
+     * ```php
+     * $this->freezeOptions = [
+     *   'freezeLeftColumns' => ['id', 'name', ...]
+     *   'freezeRightColumns' => ['id', 'name', ...]
+     * ]
+     * ```
+     */
+    public $freezeOptions = [];
 
     /**
      * @param array $config
@@ -313,10 +333,6 @@ class GridView extends KartikGridView
         } else {
             $this->baseRun();
         }
-        $view = $this->getView();
-        if ($this->clickable) {
-            ClickableAsset::register($view);
-        }
     }
 
     public function baseRun()
@@ -327,10 +343,19 @@ class GridView extends KartikGridView
         GridViewAsset::register($view);
         $view->registerJs("jQuery('#$id').yiiGridView($options);");
 
+        if ($this->freezed && $this->freezeOptions) {
+            $freezeOptions = Json::htmlEncode(array_merge($this->freezeOptions, ['container' => "#{$id}-container"]));
+            FreezeAsset::register($view);
+            $view->registerJs("jQuery('#$id-container').freezeGridView('init', $freezeOptions);");
+        }
+
+        if ($this->clickable) {
+            ClickableAsset::register($view);
+        }
+
         if ($this->showOnEmpty || $this->dataProvider->getCount() > 0) {
             $content = preg_replace_callback('/{\\w+}/', function ($matches) {
                 $content = $this->renderSection($matches[0]);
-
                 return $content === false ? $matches[0] : $content;
             }, $this->layout);
         } else {
