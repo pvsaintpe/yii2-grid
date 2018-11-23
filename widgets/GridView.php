@@ -34,7 +34,7 @@ class GridView extends KartikGridView
      * Auto-select first row in grid
      * @var bool
      */
-    public $firstSelected = true;
+    public $firstSelected = false;
 
     /**
      * @var int
