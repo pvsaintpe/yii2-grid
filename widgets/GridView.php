@@ -69,6 +69,11 @@ class GridView extends KartikGridView
     ];
 
     /**
+     * @var bool
+     */
+    public $toggleData = false;
+
+    /**
      * Renders the table body.
      * @return string the rendering result.
      * @throws \yii\base\InvalidConfigException
