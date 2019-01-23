@@ -7,7 +7,7 @@ use kartik\grid\GridView as KartikGridView;
 use pvsaintpe\freeze\FreezeAsset;
 use pvsaintpe\grid\ClickableAsset;
 use pvsaintpe\grid\GridViewAsset;
-use pvsaintpe\grid\ResizeableAsset;
+use pvsaintpe\resizeable\ResizeableAsset;
 use pvsaintpe\helpers\Html;
 use pvsaintpe\pager\Pager;
 use yii\base\InvalidConfigException;
