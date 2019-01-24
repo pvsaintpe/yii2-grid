@@ -22,7 +22,8 @@
     "kartik-v/yii2-grid": "*",
     "pvsaintpe/yii2-db-plus": "*",
     "pvsaintpe/yii2-pager": "*",
-    "pvsaintpe/yii2-freeze-column": "*"
+    "pvsaintpe/yii2-freeze-column": "*",
+    "pvsaintpe/yii2-resizeable-asset": "*"
   },
   "autoload": {
     "psr-4": {

@@ -7,11 +7,13 @@ use kartik\grid\GridView as KartikGridView;
 use pvsaintpe\freeze\FreezeAsset;
 use pvsaintpe\grid\ClickableAsset;
 use pvsaintpe\grid\GridViewAsset;
+use pvsaintpe\resizeable\ResizeableAsset;
 use pvsaintpe\helpers\Html;
 use pvsaintpe\pager\Pager;
 use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
+use yii\web\View;
 
 /**
  * Class GridView
@@ -75,6 +77,26 @@ class GridView extends KartikGridView
      * @var boolean
      */
     public $showCaption = false;
+
+    /**
+     * Allow to custom resize columns
+     * @var bool
+     */
+    public $customResizable = false;
+
+    /**
+     * @var array
+     */
+    public $defaultResizeOptions = [
+        'saveTo' => 'cookie',
+        'url' => '#'
+    ];
+
+    /**
+     * @var array
+     * @example array('container' => '#w0-container', 'urlOptions' => [], etc..)
+     */
+    public $customResizeOptions = [];
 
     /**
      * Renders the table body.
@@ -343,6 +365,16 @@ class GridView extends KartikGridView
             $this->endPjax();
         } else {
             $this->baseRun();
+        }
+        if ($this->customResizable) {
+            $view = $this->getView();
+            $container_id = '#' . $this->options['id'] . '-container';
+            ResizeableAsset::register($view);
+            $options = Json::htmlEncode(
+                array_merge($this->defaultResizeOptions, $this->customResizeOptions, ['container' => $container_id])
+            );
+            $view->registerJs("var resizeableOptions = {$options};", View::POS_HEAD);
+            $view->registerJs("$('{$container_id}').resizableColumns();");
         }
     }
 
