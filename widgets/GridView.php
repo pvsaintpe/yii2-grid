@@ -62,16 +62,19 @@ class GridView extends KartikGridView
     public $afterSummary = [];
 
     /**
-     * @var array
-     */
-    public $captionOptions = [
-        'style' => 'display: none'
-    ];
-
-    /**
      * @var bool
      */
     public $toggleData = false;
+
+    /**
+     * @var array
+     */
+    public $captionOptions = [];
+
+    /**
+     * @var boolean
+     */
+    public $showCaption = false;
 
     /**
      * Renders the table body.
@@ -312,7 +315,10 @@ class GridView extends KartikGridView
      */
     public function run()
     {
-        $this->caption = $this->view->title;
+        if ($this->showCaption) {
+            $this->caption = $this->view->title;
+        }
+
         $this->initToggleData();
         $this->initExport();
         if ($this->export !== false && isset($this->exportConfig[self::PDF])) {
